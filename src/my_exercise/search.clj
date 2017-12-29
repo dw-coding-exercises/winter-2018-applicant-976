@@ -1,5 +1,6 @@
 (ns my-exercise.search
-  (:require [clj-http.client :as client]))
+  (:require [clj-http.client :as client]
+            [hiccup.page :refer [html5]]))
 
 (defn sanitize-params [params]
   (def clean-city (clojure.string/lower-case (clojure.string/replace (get params "city") #" " "_")))
@@ -20,8 +21,14 @@
     (str "https://api.turbovote.org/elections/upcoming?district-divisions=" ids) {:accept :json}))
     (get response :body))
 
+(defn display-elections [election]
+  (html5
+    [:p "Upcoming Elections in Your Area"]
+
+      [:p (get election "description")]))
+
 (defn search [request]
   (def location (sanitize-params (get request :form-params)))
   (def ocd-ids (create-ocd-ids location))
   (def upcoming-elections (get-upcoming-elections ocd-ids))
-  (println upcoming-elections))
+  (display-elections upcoming-elections))
