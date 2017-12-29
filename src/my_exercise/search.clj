@@ -1,4 +1,5 @@
-(ns my-exercise.search)
+(ns my-exercise.search
+  (:require [clj-http.client :as client]))
 
 (defn sanitize-params [params]
   (def clean-city (clojure.string/lower-case (clojure.string/replace (get params "city") #" " "_")))
@@ -14,8 +15,13 @@
   (def ocd-city (str ocd-state "/place:" (get location :city)))
   (str ocd-state "," ocd-city))
 
+(defn get-upcoming-elections [ids]
+  (def response (client/get
+    (str "https://api.turbovote.org/elections/upcoming?district-divisions=" ids) {:accept :json}))
+    (get response :body))
+
 (defn search [request]
   (def location (sanitize-params (get request :form-params)))
   (def ocd-ids (create-ocd-ids location))
-  (println ocd-ids)
-  "testing")
+  (def upcoming-elections (get-upcoming-elections ocd-ids))
+  (println upcoming-elections))
