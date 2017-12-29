@@ -3,6 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.reload :refer [wrap-reload]]
+            [clj-http.client :as client]
             [my-exercise.home :as home]
             [my-exercise.search :as search])
 )
