@@ -1,0 +1,3 @@
+- I’m brand new to Clojure, so if I had more time, I’d further research the environment I was developing in and try to refactor to better conform with Clojure’s style.
+- I would have really liked to get through the last step of displaying the election information on the search results page. I feel I was close. I believe the issue I had was not parsing the JSON returned, but I’d need to further research  the HTTP client I used to know for sure.
+- Lastly, I would have liked my solution to be test-driven, but I feel that would have prevented me from getting very far in the time allotted as I’d need to ramp up on Clojure and a new testing framework simultaneously.
